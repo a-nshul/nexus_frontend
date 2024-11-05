@@ -9,11 +9,13 @@ function AddEvent() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  
+  const [loading, setLoading] = useState(false); // Loading state
+
   const navigate = useNavigate(); // Initialize navigate function
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true
     try {
       const response = await axios.post('http://localhost:3002/api/event/create', {
         title,
@@ -27,8 +29,6 @@ function AddEvent() {
       setDate('');
       setDescription('');
       setEmail('');
-
-      // Redirect to /schedule page
       navigate('/schedule'); // Redirect to the schedule page
     } catch (err) {
       console.error(err);
@@ -37,6 +37,8 @@ function AddEvent() {
       } else {
         setError('Failed to add event. Please try again.');
       }
+    } finally {
+      setLoading(false); // Set loading to false after request
     }
   };
 
@@ -101,9 +103,12 @@ function AddEvent() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-800 text-white p-3 rounded hover:bg-blue-700 transition duration-300"
+            className={`w-full p-3 rounded transition duration-300 ${
+              loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-800 text-white hover:bg-blue-700'
+            }`}
+            disabled={loading} // Disable button when loading
           >
-            Add Event
+            {loading ? 'Adding Event...' : 'Add Event'} {/* Change button text */}
           </button>
           {message && <p className="text-green-500">{message}</p>}
           {error && <p className="text-red-500">{error}</p>}
