@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import SchedulePage from './pages/SchedulePage';
 import RegistrationPage from './pages/RegistrationPage';
-
+import AddEvent from './pages/AddEvent';
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -22,6 +22,8 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/add-event" element={<AddEvent />} />
+
           </Routes>
         </Content>
         <Footer className="text-center py-8 bg-gray-800 text-white text-lg">
